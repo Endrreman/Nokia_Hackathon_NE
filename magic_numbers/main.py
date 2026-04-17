@@ -1,5 +1,5 @@
-from pathlib import Path
-
+import os
+import sys
 
 def next_palindrome(n: int) -> int:
     s = str(n + 1)
@@ -21,16 +21,28 @@ def next_palindrome(n: int) -> int:
 
 
 def main():
-    for s in Path("input.txt").read_text(encoding="utf-8").splitlines():
+    _p = "input.txt"
+    fd = os.open(_p, os.O_RDONLY | os.O_BINARY)
+    
+    try:
+        raw = os.read(fd, os.path.getsize(_p))
+    finally:
+        os.close(fd)
+        
+    _np = next_palindrome
+    results = []
+    
+    for s in raw.decode("utf-8").splitlines():
         try:
             if "^" in s:
                 a, _, b = s.partition("^")
                 n = int(a) ** int(b)
             else:
                 n = int(s)
-            print(next_palindrome(n))
+            results.append(str(_np(n)))
         except (ValueError, ArithmeticError):
             pass
+    sys.stdout.write("\n".join(results) + "\n")
 
 
 if __name__ == "__main__":
