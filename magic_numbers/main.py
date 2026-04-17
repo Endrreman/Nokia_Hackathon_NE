@@ -1,5 +1,4 @@
 import os
-import sys
 
 def next_palindrome(n: int) -> int:
     s = str(n + 1)
@@ -18,7 +17,6 @@ def next_palindrome(n: int) -> int:
         return 10**length + 1
     
     return int(fi + fi[:h][::-1])
-
 
 def main():
     _p = "input.txt"
@@ -39,11 +37,9 @@ def main():
                 n = int(a) ** int(b)
             else:
                 n = int(s)
-            results.append(str(_np(n)))
+            print(_np(n))
         except (ValueError, ArithmeticError):
             pass
-    sys.stdout.write("\n".join(results) + "\n")
-
 
 if __name__ == "__main__":
     main()
