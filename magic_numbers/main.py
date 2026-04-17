@@ -1,4 +1,4 @@
-import os
+from pathlib import Path
 
 def next_palindrome(n: int) -> int:
     digits = str(n + 1)
