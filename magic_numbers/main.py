@@ -1,5 +1,6 @@
 from pathlib import Path
 
+
 def next_palindrome(n: int) -> int:
     digits = str(n + 1)
     length = len(digits)
@@ -30,6 +31,7 @@ def main():
             print(next_palindrome(n))
         except (ValueError, ArithmeticError):
             pass
+
 
 if __name__ == "__main__":
     main()
