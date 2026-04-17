@@ -2,7 +2,6 @@ from pathlib import Path
 
 
 def next_palindrome(n: int) -> int:
-    """Return the smallest palindrome strictly greater than n."""
     s = str(n + 1)
     length = len(s)
     h = length >> 1
