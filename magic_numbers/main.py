@@ -2,32 +2,32 @@ from pathlib import Path
 
 
 def next_palindrome(n: int) -> int:
-    s = str(n + 1)
-    length = len(s)
-    h = length >> 1
-    split = h + (length & 1)
-    front = s[:split]
-    tail = front[:h][::-1]
-    
-    if (m := front + tail) >= s: 
-        return int(m)
-    
-    fi = str(int(front) + 1)
-    
-    if len(fi) > split: 
+    digits = str(n + 1)
+    length = len(digits)
+    half = length >> 1
+    mid = half + (length & 1)
+    front = digits[:mid]
+    mirrored = front + front[:half][::-1]
+
+    if mirrored >= digits:
+        return int(mirrored)
+
+    incremented = str(int(front) + 1)
+
+    if len(incremented) > mid:
         return 10**length + 1
-    
-    return int(fi + fi[:h][::-1])
+
+    return int(incremented + incremented[:half][::-1])
 
 
 def main():
-    for s in Path("input.txt").read_text(encoding="utf-8").splitlines():
+    for line in Path("input.txt").read_text(encoding="utf-8").splitlines():
         try:
-            if "^" in s:
-                a, _, b = s.partition("^")
-                n = int(a) ** int(b)
+            if "^" in line:
+                base, _, exp = line.partition("^")
+                n = int(base) ** int(exp)
             else:
-                n = int(s)
+                n = int(line)
             print(next_palindrome(n))
         except (ValueError, ArithmeticError):
             pass
