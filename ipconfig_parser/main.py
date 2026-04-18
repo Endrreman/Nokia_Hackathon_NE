@@ -44,7 +44,16 @@ def _clean_value(v: str) -> str:
     return v
 
 def _new_adapter(name: str) -> dict:
-    return {"adapter_name": name}
+    return {
+        "adapter_name":    name,
+        "description":     "",
+        "physical_address": "",
+        "dhcp_enabled":    "",
+        "ipv4_address":    "",
+        "subnet_mask":     "",
+        "default_gateway": [],
+        "dns_servers":     [],
+    }
 
 def parse_file(path: Path) -> dict:
     raw = path.read_bytes()
