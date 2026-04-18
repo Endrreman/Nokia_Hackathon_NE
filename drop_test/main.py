@@ -40,6 +40,9 @@ def min_num_of_drops(n: int, h: int) -> int:
         cn = cn * t // (t - n)
 
     return h
+
+# ── Main ──────────────────────────────────────────────────────────────────────
+
 def main():
     for line in Path("input.txt").read_text(encoding="utf-8").splitlines():
         line = line.strip()

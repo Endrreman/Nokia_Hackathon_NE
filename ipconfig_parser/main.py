@@ -2,12 +2,16 @@ import json
 from pathlib import Path
 
 
+# ── Constants ────────────────────────────────────────────────────────────────────
+
 FIELD_MAP = {"autoconfiguration_ipv4_address": "ipv4_address",}
 
 LIST_FIELDS = {"default_gateway", "dns_servers"}
 
 KNOWN_SUFFIXES = frozenset({'preferred', 'deferred', 'duplicate', 'tentative'})
 
+
+# ── Output formatting ────────────────────────────────────────────────────
 
 def _dumps(obj, indent=2, _level=0) -> str:
     pad   = ' ' * (indent * _level)
@@ -32,6 +36,9 @@ def _dumps(obj, indent=2, _level=0) -> str:
 
     return json.dumps(obj, ensure_ascii=False)
 
+
+# ── Helpers ─────────────────────────────────────────────────────────────────────
+
 def _normalise_key(raw: str) -> str:
     return '_'.join(raw.replace('.', ' ').replace('-', ' ').lower().split())
 
@@ -54,6 +61,9 @@ def _new_adapter(name: str) -> dict:
         "default_gateway": [],
         "dns_servers":     [],
     }
+
+
+# ── Parsing ──────────────────────────────────────────────────────────────────────
 
 def parse_file(path: Path) -> dict:
     raw = path.read_bytes()
@@ -105,6 +115,8 @@ def parse_file(path: Path) -> dict:
 
     return {"file_name": path.name, "adapters": adapters}
 
+
+# ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
     result = [parse_file(p) for p in sorted(Path(".").glob("*.txt"))]

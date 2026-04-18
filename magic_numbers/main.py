@@ -19,6 +19,7 @@ def next_palindrome(n: int) -> int:
 
     return int(incremented + incremented[:half][::-1])
 
+# ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
     for line in Path("input.txt").read_text(encoding="utf-8").splitlines():
