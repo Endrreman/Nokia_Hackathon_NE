@@ -45,14 +45,14 @@ def _clean_value(v: str) -> str:
 
 def _new_adapter(name: str) -> dict:
     return {
-        "adapter_name":    name,
-        "description":     "",
-        "physical_address": "",
-        "dhcp_enabled":    "",
-        "ipv4_address":    "",
-        "subnet_mask":     "",
-        "default_gateway": [],
-        "dns_servers":     [],
+        "adapter_name":     name,
+        "description":      "",
+        "physical_address":  "",
+        "dhcp_enabled":     "",
+        "ipv4_address":     "",
+        "subnet_mask":      "",
+        "default_gateway":  [],
+        "dns_servers":      [],
     }
 
 def parse_file(path: Path) -> dict:
@@ -84,6 +84,9 @@ def parse_file(path: Path) -> dict:
             if key_part and key_part[0].isalpha():
                 field = FIELD_MAP.get(_normalise_key(key_part), _normalise_key(key_part))
                 val = _clean_value(right)
+                if field not in current:
+                    last_field = None
+                    continue
                 if field in LIST_FIELDS:
                     if val:
                         current[field] = [val]
